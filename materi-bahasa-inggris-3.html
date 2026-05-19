@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Materi Bahasa Inggris — Text Types</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1208;
+    --cream: #faf6ee;
+    --paper: #f2ead8;
+    --gold: #c8933a;
+    --gold-light: #e8b96a;
+    --rust: #b84c2a;
+    --teal: #2a7a6a;
+    --teal-light: #d6eeea;
+    --muted: #7a6a55;
+    --border: #d4c4a0;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    background: var(--cream);
+    color: var(--ink);
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-size: 16px;
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  /* HERO */
+  .hero {
+    background: var(--ink);
+    color: var(--cream);
+    padding: 52px 24px 44px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content:'';
+    position:absolute;
+    inset:0;
+    background: repeating-linear-gradient(45deg,transparent,transparent 28px,rgba(200,147,58,.07) 28px,rgba(200,147,58,.07) 29px);
+  }
+  .hero-eyebrow {
+    font-size: 10px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--gold-light);
+    margin-bottom: 12px;
+    font-weight: 300;
+    position: relative;
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 6vw, 3.6rem);
+    font-weight: 900;
+    line-height: 1.1;
+    margin-bottom: 10px;
+    position: relative;
+  }
+  .hero h1 em { color: var(--gold-light); font-style: normal; }
+  .hero p { font-size: 14px; color: #b0a898; position: relative; }
+
+  /* SCREEN SYSTEM */
+  .screen { display: none; }
+  .screen.active { display: block; animation: fadeIn .3s ease; }
+  @keyframes fadeIn {
+    from { opacity:0; transform:translateY(10px); }
+    to   { opacity:1; transform:translateY(0); }
+  }
+
+  /* ── HOME SCREEN ── */
+  #home {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 44px 20px 80px;
+  }
+  .home-intro {
+    text-align: center;
+    margin-bottom: 36px;
+  }
+  .home-intro p {
+    font-size: 15px;
+    color: var(--muted);
+  }
+  .home-intro strong {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    display: block;
+    margin-bottom: 6px;
+    color: var(--ink);
+  }
+
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+  }
+  @media(max-width:640px) { .cards-grid { grid-template-columns: 1fr 1fr; gap:12px; } }
+  @media(max-width:400px) { .cards-grid { grid-template-columns: 1fr; } }
+
+  .mat-card {
+    background: white;
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    padding: 22px 18px 20px;
+    cursor: pointer;
+    transition: transform .2s, box-shadow .2s, border-color .2s;
+    position: relative;
+    overflow: hidden;
+  }
+  .mat-card::after {
+    content: '→';
+    position: absolute;
+    bottom: 16px;
+    right: 18px;
+    font-size: 18px;
+    color: var(--border);
+    transition: color .2s, transform .2s;
+  }
+  .mat-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0,0,0,.1);
+    border-color: var(--gold);
+  }
+  .mat-card:hover::after { color: var(--gold); transform: translateX(4px); }
+
+  .mc-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.4rem;
+    font-weight: 900;
+    line-height: 1;
+    margin-bottom: 10px;
+  }
+  .mc-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+    line-height: 1.2;
+  }
+  .mc-badge {
+    display: inline-block;
+    font-size: 9px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 3px 9px;
+    border-radius: 2px;
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+  .mc-desc {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.5;
+    padding-right: 18px;
+  }
+
+  /* card colour themes */
+  .t1 .mc-num { color: #c5d4f8; } .t1 .mc-badge { background:#e8f0fe; color:#2a5ab8; }
+  .t2 .mc-num { color: #f5c5bd; } .t2 .mc-badge { background:#fce8e4; color:#b83a2a; }
+  .t3 .mc-num { color: #b8e6c0; } .t3 .mc-badge { background:#e6f4ea; color:#2a7a3a; }
+  .t4 .mc-num { color: #f5d8a0; } .t4 .mc-badge { background:#fff3e0; color:#b86a00; }
+  .t5 .mc-num { color: #ddb8f0; } .t5 .mc-badge { background:#f3e5f5; color:#7b2a9e; }
+  .t6 .mc-num { color: #a8ddb0; } .t6 .mc-badge { background:#e8f5e9; color:#1a6630; }
+
+  /* ── MATERI SCREEN ── */
+  .materi-screen {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0 20px 80px;
+  }
+
+  /* top bar */
+  .topbar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 0 0;
+    margin-bottom: 28px;
+  }
+  .back-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: none;
+    border: 1.5px solid var(--border);
+    border-radius: 4px;
+    padding: 7px 14px;
+    cursor: pointer;
+    font-family: 'Source Serif 4', serif;
+    font-size: 13px;
+    color: var(--muted);
+    transition: all .2s;
+    flex-shrink: 0;
+  }
+  .back-btn:hover { background: var(--ink); color: var(--gold-light); border-color: var(--ink); }
+
+  .breadcrumb {
+    font-size: 12px;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .breadcrumb span { color: var(--border); }
+
+  /* page header */
+  .mat-header {
+    border-bottom: 2px solid var(--border);
+    padding-bottom: 20px;
+    margin-bottom: 28px;
+  }
+  .mat-eyebrow {
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+  .mat-header h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.7rem, 5vw, 2.4rem);
+    font-weight: 900;
+    line-height: 1.1;
+    margin-bottom: 10px;
+  }
+  .mat-badge {
+    display: inline-block;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 3px;
+    font-weight: 700;
+  }
+
+  /* content elements */
+  .def-box {
+    background: var(--teal-light);
+    border-left: 3px solid var(--teal);
+    padding: 14px 18px;
+    border-radius: 0 4px 4px 0;
+    margin-bottom: 26px;
+    font-size: 15px;
+    color: #1a3530;
+  }
+  .def-box strong { color: var(--teal); }
+
+  h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+    margin: 26px 0 10px;
+    padding-bottom: 6px;
+    border-bottom: 1px dashed var(--border);
+    color: var(--ink);
+  }
+
+  ul, ol { padding-left: 20px; margin-bottom: 12px; }
+  li { margin-bottom: 6px; font-size: 15px; }
+  li strong { color: var(--rust); }
+
+  .struct-grid { display:grid; gap:10px; margin-bottom:18px; }
+  .struct-row {
+    display: grid;
+    grid-template-columns: 170px 1fr;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+    font-size: 14px;
+  }
+  .sr-label {
+    background: var(--paper);
+    padding: 10px 14px;
+    font-weight: 600;
+    border-right: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+  }
+  .sr-desc { padding: 10px 14px; color: var(--muted); display:flex; align-items:center; }
+
+  .lang-chips { display:flex; flex-wrap:wrap; gap:8px; margin-top:8px; margin-bottom:4px; }
+  .chip {
+    font-size: 12px;
+    padding: 4px 12px;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    background: var(--cream);
+    color: var(--muted);
+    font-weight: 500;
+  }
+
+  .example-box {
+    background: #fdf8f0;
+    border: 1px solid #e0d0b0;
+    border-radius: 6px;
+    padding: 20px 22px;
+    margin-top: 18px;
+  }
+  .ex-label {
+    font-size: 9px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+  .example-box p { font-size: 14px; color: #4a3c28; font-style: italic; line-height: 1.85; }
+  .example-box p strong { font-style: normal; color: #2a1a08; }
+
+  /* bottom nav */
+  .bottom-nav {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 44px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+    gap: 12px;
+  }
+  .bn-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: white;
+    border: 1.5px solid var(--border);
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: 'Source Serif 4', serif;
+    font-size: 13px;
+    color: var(--muted);
+    transition: all .2s;
+  }
+  .bn-btn:hover { background: var(--ink); color: var(--gold-light); border-color: var(--ink); }
+  .bn-btn:disabled { opacity:.3; pointer-events:none; }
+  .bn-btn.primary { background: var(--ink); color: var(--gold-light); border-color: var(--ink); }
+
+  /* responsive struct */
+  @media(max-width:500px) {
+    .struct-row { grid-template-columns:1fr; }
+    .sr-label { border-right:none; border-bottom:1px solid var(--border); }
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <p class="hero-eyebrow">Bahasa Inggris · Text Types</p>
+  <h1>Materi <em>Teks Bahasa</em> Inggris</h1>
+  <p>Pilih materi di bawah untuk mulai belajar</p>
+</div>
+
+<!-- ═══════════════ HOME ═══════════════ -->
+<div class="screen active" id="screen-home">
+  <div id="home">
+    <div class="home-intro">
+      <strong>6 Jenis Teks Bahasa Inggris</strong>
+      <p>Klik salah satu kartu untuk membuka materi lengkap</p>
+    </div>
+    <div class="cards-grid">
+
+      <div class="mat-card t1" onclick="openMateri('p1')">
+        <div class="mc-num">01</div>
+        <div class="mc-title">Narrative Text</div>
+        <div class="mc-badge">Imaginative</div>
+        <p class="mc-desc">Cerita fiksi/nyata dengan konflik &amp; resolusi untuk menghibur pembaca.</p>
+      </div>
+
+      <div class="mat-card t2" onclick="openMateri('p2')">
+        <div class="mc-num">02</div>
+        <div class="mc-title">Descriptive Text</div>
+        <div class="mc-badge">Descriptive</div>
+        <p class="mc-desc">Menggambarkan satu objek spesifik secara detail agar pembaca bisa membayangkannya.</p>
+      </div>
+
+      <div class="mat-card t3" onclick="openMateri('p3')">
+        <div class="mc-num">03</div>
+        <div class="mc-title">Procedure Text</div>
+        <div class="mc-badge">Instructional</div>
+        <p class="mc-desc">Langkah-langkah berurutan cara melakukan atau membuat sesuatu.</p>
+      </div>
+
+      <div class="mat-card t4" onclick="openMateri('p4')">
+        <div class="mc-num">04</div>
+        <div class="mc-title">Analytical Exposition</div>
+        <div class="mc-badge">Argumentative</div>
+        <p class="mc-desc">Meyakinkan pembaca dengan argumen dan analisis terhadap suatu isu.</p>
+      </div>
+
+      <div class="mat-card t5" onclick="openMateri('p5')">
+        <div class="mc-num">05</div>
+        <div class="mc-title">Report Text</div>
+        <div class="mc-badge">Scientific</div>
+        <p class="mc-desc">Informasi faktual &amp; ilmiah tentang suatu fenomena secara umum dan objektif.</p>
+      </div>
+
+      <div class="mat-card t6" onclick="openMateri('p6')">
+        <div class="mc-num">06</div>
+        <div class="mc-title">Recount Text</div>
+        <div class="mc-badge">Personal</div>
+        <p class="mc-desc">Menceritakan kembali kejadian nyata di masa lalu secara kronologis.</p>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ P1: NARRATIVE ═══════════════ -->
+<div class="screen" id="screen-p1">
+  <div class="materi-screen">
+    <div class="topbar">
+      <button class="back-btn" onclick="goHome()">← Kembali</button>
+      <div class="breadcrumb">Beranda <span>/</span> Narrative Text</div>
+    </div>
+    <div class="mat-header">
+      <p class="mat-eyebrow">Materi 01</p>
+      <h2>Narrative Text</h2>
+      <span class="mat-badge" style="background:#e8f0fe;color:#2a5ab8">Imaginative / Literary</span>
+    </div>
+
+    <div class="def-box">
+      <strong>Definisi:</strong> Teks yang menceritakan sebuah kisah (fiksi atau nyata) dengan tujuan <em>menghibur pembaca</em> (to entertain) dan seringkali mengandung pesan moral.
+    </div>
+
+    <h3>📌 Generic Structure</h3>
+    <div class="struct-grid">
+      <div class="struct-row"><div class="sr-label">Orientation</div><div class="sr-desc">Pengenalan tokoh, waktu, dan latar tempat cerita.</div></div>
+      <div class="struct-row"><div class="sr-label">Complication</div><div class="sr-desc">Konflik atau masalah yang dialami tokoh.</div></div>
+      <div class="struct-row"><div class="sr-label">Resolution</div><div class="sr-desc">Penyelesaian konflik — bisa happy ending atau sad ending.</div></div>
+      <div class="struct-row"><div class="sr-label">Re-orientation</div><div class="sr-desc">(Opsional) Penutup atau komentar akhir cerita.</div></div>
+      <div class="struct-row"><div class="sr-label">Coda</div><div class="sr-desc">(Opsional) Pesan moral dari cerita.</div></div>
+    </div>
+
+    <h3>✏️ Language Features</h3>
+    <div class="lang-chips">
+      <span class="chip">Past tense</span>
+      <span class="chip">Action verbs</span>
+      <span class="chip">Time connectives (then, after, finally)</span>
+      <span class="chip">Dialogue</span>
+      <span class="chip">Descriptive adjectives</span>
+      <span class="chip">1st / 3rd person</span>
+    </div>
+
+    <h3>💡 Tujuan Komunikatif</h3>
+    <ul>
+      <li>Menghibur pembaca melalui alur cerita yang menarik</li>
+      <li>Menyampaikan pesan moral secara implisit</li>
+      <li>Mengembangkan imajinasi dan empati pembaca</li>
+    </ul>
+
+    <h3>📝 Contoh Teks</h3>
+    <div class="example-box">
+      <p class="ex-label">The Honest Woodcutter</p>
+      <p>
+        <strong>[Orientation]</strong> Once upon a time, a poor woodcutter lived near a deep forest. He worked hard every day to feed his family.<br><br>
+        <strong>[Complication]</strong> One day, his only axe slipped from his hands and fell into the river. He cried desperately by the riverside, not knowing what to do without his only tool.<br><br>
+        <strong>[Resolution]</strong> Suddenly, a river fairy appeared. She offered him a golden axe, then a silver one. Each time, the woodcutter honestly replied, "That is not mine." Impressed by his honesty, the fairy returned his iron axe and gave him the golden and silver axes as a reward.<br><br>
+        <strong>[Coda]</strong> Honesty is always the best policy.
+      </p>
+    </div>
+
+    <div class="bottom-nav">
+      <button class="bn-btn" disabled>← Sebelumnya</button>
+      <button class="bn-btn primary" onclick="openMateri('p2')">Descriptive Text →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ P2: DESCRIPTIVE ═══════════════ -->
+<div class="screen" id="screen-p2">
+  <div class="materi-screen">
+    <div class="topbar">
+      <button class="back-btn" onclick="goHome()">← Kembali</button>
+      <div class="breadcrumb">Beranda <span>/</span> Descriptive Text</div>
+    </div>
+    <div class="mat-header">
+      <p class="mat-eyebrow">Materi 02</p>
+      <h2>Descriptive Text</h2>
+      <span class="mat-badge" style="background:#fce8e4;color:#b83a2a">Informative / Descriptive</span>
+    </div>
+
+    <div class="def-box">
+      <strong>Definisi:</strong> Teks yang menggambarkan sesuatu (orang, tempat, benda, atau hewan) secara spesifik dan detail sehingga pembaca dapat <em>membayangkan objek yang dideskripsikan</em>.
+    </div>
+
+    <h3>📌 Generic Structure</h3>
+    <div class="struct-grid">
+      <div class="struct-row"><div class="sr-label">Identification</div><div class="sr-desc">Memperkenalkan objek yang akan dideskripsikan.</div></div>
+      <div class="struct-row"><div class="sr-label">Description</div><div class="sr-desc">Penggambaran detail objek: fisik, sifat, keunikan, fungsi, dll.</div></div>
+    </div>
+
+    <h3>⚡ Perbedaan dengan Report Text</h3>
+    <ul>
+      <li><strong>Descriptive:</strong> Spesifik — satu objek tertentu. Contoh: <em>"My cat, Mimi, is…"</em></li>
+      <li><strong>Report:</strong> Umum — jenis/kelompok. Contoh: <em>"Cats are…"</em></li>
+    </ul>
+
+    <h3>✏️ Language Features</h3>
+    <div class="lang-chips">
+      <span class="chip">Simple present tense</span>
+      <span class="chip">Adjectives (beautiful, tall, unique)</span>
+      <span class="chip">Relating verbs (is, are, has, have)</span>
+      <span class="chip">Sensory details</span>
+      <span class="chip">Specific noun phrases</span>
+    </div>
+
+    <h3>📝 Contoh Teks</h3>
+    <div class="example-box">
+      <p class="ex-label">Borobudur Temple</p>
+      <p>
+        <strong>[Identification]</strong> Borobudur is one of the most magnificent Buddhist temples in the world, located in Magelang, Central Java, Indonesia.<br><br>
+        <strong>[Description]</strong> The temple has nine stacked platforms — six square and three circular — topped by a central dome. It is decorated with 2,672 relief panels and 504 Buddha statues. Every surface tells a story of Buddhist teachings, carved skillfully into ancient stone. The temple faces east, and at sunrise, the view from the top is absolutely breathtaking. Borobudur is truly a masterpiece of human architecture and spiritual devotion.
+      </p>
+    </div>
+
+    <div class="bottom-nav">
+      <button class="bn-btn" onclick="openMateri('p1')">← Narrative Text</button>
+      <button class="bn-btn primary" onclick="openMateri('p3')">Procedure Text →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ P3: PROCEDURE ═══════════════ -->
+<div class="screen" id="screen-p3">
+  <div class="materi-screen">
+    <div class="topbar">
+      <button class="back-btn" onclick="goHome()">← Kembali</button>
+      <div class="breadcrumb">Beranda <span>/</span> Procedure Text</div>
+    </div>
+    <div class="mat-header">
+      <p class="mat-eyebrow">Materi 03</p>
+      <h2>Procedure Text</h2>
+      <span class="mat-badge" style="background:#e6f4ea;color:#2a7a3a">Instructional</span>
+    </div>
+
+    <div class="def-box">
+      <strong>Definisi:</strong> Teks yang menjelaskan langkah-langkah cara melakukan sesuatu secara berurutan. Tujuannya adalah <em>memberikan instruksi</em> (how to do / make something).
+    </div>
+
+    <h3>📌 Generic Structure</h3>
+    <div class="struct-grid">
+      <div class="struct-row"><div class="sr-label">Goal / Title</div><div class="sr-desc">Tujuan atau hasil akhir yang ingin dicapai.</div></div>
+      <div class="struct-row"><div class="sr-label">Materials</div><div class="sr-desc">Bahan-bahan atau alat yang dibutuhkan (jika ada).</div></div>
+      <div class="struct-row"><div class="sr-label">Steps</div><div class="sr-desc">Langkah-langkah yang harus dilakukan secara berurutan.</div></div>
+    </div>
+
+    <h3>💡 Jenis-jenis Procedure Text</h3>
+    <ul>
+      <li><strong>Recipes</strong> — cara memasak makanan/minuman</li>
+      <li><strong>Manual</strong> — cara menggunakan alat/mesin</li>
+      <li><strong>Tips</strong> — cara melakukan sesuatu lebih baik</li>
+      <li><strong>Experiments</strong> — prosedur ilmiah di laboratorium</li>
+    </ul>
+
+    <h3>✏️ Language Features</h3>
+    <div class="lang-chips">
+      <span class="chip">Imperative sentences (Mix, Boil, Add…)</span>
+      <span class="chip">Sequence adverbs (first, then, next, finally)</span>
+      <span class="chip">Simple present tense</span>
+      <span class="chip">Action verbs</span>
+      <span class="chip">Numbered steps</span>
+      <span class="chip">Precise measurements</span>
+    </div>
+
+    <h3>📝 Contoh Teks</h3>
+    <div class="example-box">
+      <p class="ex-label">How to Make a Cup of Tea</p>
+      <p>
+        <strong>Materials:</strong> 1 tea bag, 200 ml hot water, 1 tsp sugar, a cup.<br><br>
+        <strong>Steps:</strong><br>
+        1. <em>First,</em> boil water in a kettle until it reaches about 90–95°C.<br>
+        2. <em>Then,</em> place a tea bag into a clean cup.<br>
+        3. <em>Next,</em> carefully pour the hot water over the tea bag.<br>
+        4. Let it steep for 3–5 minutes depending on how strong you like it.<br>
+        5. Remove the tea bag and add sugar to taste.<br>
+        6. <em>Finally,</em> stir gently and enjoy your tea while warm.
+      </p>
+    </div>
+
+    <div class="bottom-nav">
+      <button class="bn-btn" onclick="openMateri('p2')">← Descriptive Text</button>
+      <button class="bn-btn primary" onclick="openMateri('p4')">Exposition Text →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ P4: ANALYTICAL EXPOSITION ═══════════════ -->
+<div class="screen" id="screen-p4">
+  <div class="materi-screen">
+    <div class="topbar">
+      <button class="back-btn" onclick="goHome()">← Kembali</button>
+      <div class="breadcrumb">Beranda <span>/</span> Analytical Exposition Text</div>
+    </div>
+    <div class="mat-header">
+      <p class="mat-eyebrow">Materi 04</p>
+      <h2>Analytical Exposition Text</h2>
+      <span class="mat-badge" style="background:#fff3e0;color:#b86a00">Argumentative</span>
+    </div>
+
+    <div class="def-box">
+      <strong>Definisi:</strong> Teks yang bertujuan untuk <em>meyakinkan pembaca</em> bahwa suatu topik penting, dengan memberikan argumen-argumen pendukung beserta analisisnya.
+    </div>
+
+    <h3>📌 Generic Structure</h3>
+    <div class="struct-grid">
+      <div class="struct-row"><div class="sr-label">Thesis</div><div class="sr-desc">Pernyataan posisi atau pendapat penulis terhadap suatu isu.</div></div>
+      <div class="struct-row"><div class="sr-label">Arguments</div><div class="sr-desc">Argumen-argumen pendukung thesis (biasanya 2–3 argumen + elaborasi).</div></div>
+      <div class="struct-row"><div class="sr-label">Reiteration</div><div class="sr-desc">Penegasan kembali posisi penulis di akhir teks.</div></div>
+    </div>
+
+    <h3>💡 Tips Menulis Exposition</h3>
+    <ul>
+      <li>Setiap argumen wajib disertai <strong>elaborasi/penjelasan</strong></li>
+      <li>Gunakan data, fakta, atau contoh nyata untuk memperkuat argumen</li>
+      <li>Reiteration bukan sekadar mengulang — pertegas kesimpulan dengan kuat</li>
+    </ul>
+
+    <h3>✏️ Language Features</h3>
+    <div class="lang-chips">
+      <span class="chip">Simple present tense</span>
+      <span class="chip">Causal conjunctions (because, therefore, thus)</span>
+      <span class="chip">Modal verbs (should, must, need to)</span>
+      <span class="chip">Evaluative language</span>
+      <span class="chip">Connectives (firstly, furthermore, in conclusion)</span>
+      <span class="chip">Passive voice</span>
+    </div>
+
+    <h3>📝 Contoh Teks</h3>
+    <div class="example-box">
+      <p class="ex-label">Reading is Important for Students</p>
+      <p>
+        <strong>[Thesis]</strong> Reading is one of the most important habits every student should develop in their academic life.<br><br>
+        <strong>[Argument 1]</strong> Firstly, reading regularly improves vocabulary and language skills. Students who read widely are exposed to varied sentence structures and word choices, making them more confident communicators in both speaking and writing.<br><br>
+        <strong>[Argument 2]</strong> Furthermore, reading broadens knowledge across many fields. It allows students to explore topics beyond the classroom, fostering critical and analytical thinking essential for solving complex problems.<br><br>
+        <strong>[Reiteration]</strong> Therefore, reading is not merely a hobby — it is a fundamental skill that shapes intellectual growth and academic success. Students should be encouraged to read at least 30 minutes every day.
+      </p>
+    </div>
+
+    <div class="bottom-nav">
+      <button class="bn-btn" onclick="openMateri('p3')">← Procedure Text</button>
+      <button class="bn-btn primary" onclick="openMateri('p5')">Report Text →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ P5: REPORT ═══════════════ -->
+<div class="screen" id="screen-p5">
+  <div class="materi-screen">
+    <div class="topbar">
+      <button class="back-btn" onclick="goHome()">← Kembali</button>
+      <div class="breadcrumb">Beranda <span>/</span> Report Text</div>
+    </div>
+    <div class="mat-header">
+      <p class="mat-eyebrow">Materi 05</p>
+      <h2>Report Text</h2>
+      <span class="mat-badge" style="background:#f3e5f5;color:#7b2a9e">Informative / Scientific</span>
+    </div>
+
+    <div class="def-box">
+      <strong>Definisi:</strong> Teks yang menyajikan informasi faktual dan ilmiah tentang fenomena alam, makhluk hidup, atau objek secara <em>umum</em> (bukan satu objek spesifik). Tujuannya adalah menginformasikan secara objektif.
+    </div>
+
+    <h3>📌 Generic Structure</h3>
+    <div class="struct-grid">
+      <div class="struct-row"><div class="sr-label">General Classification</div><div class="sr-desc">Pengenalan umum tentang topik yang akan dibahas.</div></div>
+      <div class="struct-row"><div class="sr-label">Description</div><div class="sr-desc">Detail tentang bagian-bagian, kebiasaan, perilaku, fungsi, habitat, dll.</div></div>
+    </div>
+
+    <h3>⚡ Perbedaan Report vs Descriptive</h3>
+    <ul>
+      <li><strong>Report:</strong> Umum — jenis/kelompok. <em>"Dolphins are…"</em></li>
+      <li><strong>Descriptive:</strong> Spesifik — satu objek. <em>"My dolphin, Nemo, is…"</em></li>
+    </ul>
+
+    <h3>✏️ Language Features</h3>
+    <div class="lang-chips">
+      <span class="chip">Simple present tense</span>
+      <span class="chip">General nouns (Dolphins, Volcanoes)</span>
+      <span class="chip">Relating verbs (is, are, has)</span>
+      <span class="chip">Technical vocabulary</span>
+      <span class="chip">Objective — no personal opinion</span>
+      <span class="chip">Passive voice</span>
+    </div>
+
+    <h3>📝 Contoh Teks</h3>
+    <div class="example-box">
+      <p class="ex-label">Dolphins</p>
+      <p>
+        <strong>[General Classification]</strong> Dolphins are marine mammals belonging to the family Delphinidae. They are among the most intelligent animals on Earth, closely related to whales and porpoises.<br><br>
+        <strong>[Description]</strong> Dolphins have streamlined bodies that allow them to swim at speeds up to 60 km/h. They breathe through a blowhole on top of their heads. Using a system called <em>echolocation</em>, they emit sound waves to navigate and hunt for prey. Dolphins are highly social and live in groups called pods. They feed mainly on fish and squid. Their lifespan ranges from 20 to 60 years depending on the species.
+      </p>
+    </div>
+
+    <div class="bottom-nav">
+      <button class="bn-btn" onclick="openMateri('p4')">← Exposition Text</button>
+      <button class="bn-btn primary" onclick="openMateri('p6')">Recount Text →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ P6: RECOUNT ═══════════════ -->
+<div class="screen" id="screen-p6">
+  <div class="materi-screen">
+    <div class="topbar">
+      <button class="back-btn" onclick="goHome()">← Kembali</button>
+      <div class="breadcrumb">Beranda <span>/</span> Recount Text</div>
+    </div>
+    <div class="mat-header">
+      <p class="mat-eyebrow">Materi 06</p>
+      <h2>Recount Text</h2>
+      <span class="mat-badge" style="background:#e8f5e9;color:#1a6630">Personal / Historical</span>
+    </div>
+
+    <div class="def-box">
+      <strong>Definisi:</strong> Teks yang menceritakan kembali peristiwa atau pengalaman yang telah terjadi di masa lalu secara kronologis. Tujuannya adalah <em>menginformasikan atau menghibur</em> pembaca.
+    </div>
+
+    <h3>📌 Generic Structure</h3>
+    <div class="struct-grid">
+      <div class="struct-row"><div class="sr-label">Orientation</div><div class="sr-desc">Pengenalan siapa, kapan, dan di mana kejadian berlangsung.</div></div>
+      <div class="struct-row"><div class="sr-label">Events</div><div class="sr-desc">Urutan kejadian yang terjadi secara kronologis.</div></div>
+      <div class="struct-row"><div class="sr-label">Re-orientation</div><div class="sr-desc">Kesimpulan atau komentar/perasaan penulis tentang kejadian tersebut.</div></div>
+    </div>
+
+    <h3>⚡ Perbedaan Recount vs Narrative</h3>
+    <ul>
+      <li><strong>Recount:</strong> Kejadian <em>nyata</em>, tidak ada complication &amp; resolution.</li>
+      <li><strong>Narrative:</strong> Bisa fiksi, ada konflik (complication) dan penyelesaian (resolution).</li>
+    </ul>
+
+    <h3>💡 Jenis-jenis Recount Text</h3>
+    <ul>
+      <li><strong>Personal Recount</strong> — pengalaman pribadi penulis</li>
+      <li><strong>Factual Recount</strong> — laporan kejadian nyata (berita, laporan ilmiah)</li>
+      <li><strong>Imaginative Recount</strong> — pengalaman imajiner/fiktif</li>
+    </ul>
+
+    <h3>✏️ Language Features</h3>
+    <div class="lang-chips">
+      <span class="chip">Simple past tense</span>
+      <span class="chip">Sequence connectives (first, then, after that)</span>
+      <span class="chip">Personal pronouns (I, we)</span>
+      <span class="chip">Action verbs</span>
+      <span class="chip">Specific time &amp; place</span>
+      <span class="chip">Descriptive language</span>
+    </div>
+
+    <h3>📝 Contoh Teks</h3>
+    <div class="example-box">
+      <p class="ex-label">My Trip to Bali</p>
+      <p>
+        <strong>[Orientation]</strong> Last school holiday, my family and I went to Bali for three days. We stayed at a small, cozy hotel near Kuta Beach.<br><br>
+        <strong>[Events]</strong> On the first day, we visited Tanah Lot Temple in the afternoon and watched a breathtaking sunset over the Indian Ocean. The next morning, we drove to Ubud to see a traditional Kecak dance performance and the famous Tegalalang rice terraces. The scenery was absolutely stunning. On the last day, we enjoyed the beach, swam in the sea, and bought souvenirs for our friends back home.<br><br>
+        <strong>[Re-orientation]</strong> It was one of the most amazing trips I had ever experienced. We returned home feeling refreshed and happy, and promised each other to visit Bali again someday.
+      </p>
+    </div>
+
+    <div class="bottom-nav">
+      <button class="bn-btn" onclick="openMateri('p5')">← Report Text</button>
+      <button class="bn-btn primary" onclick="goHome()">🏠 Kembali ke Beranda</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  function openMateri(id) {
+    // hide all
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    // show target
+    document.getElementById('screen-' + id).classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function goHome() {
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    document.getElementById('screen-home').classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+</script>
+</body>
+</html>
